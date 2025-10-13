@@ -68,6 +68,7 @@ Create a Workspace connected to this Git repository as follows:
 SET hol_admin_role_name = 'EVOLV_AI_HOL_ADMIN';
 SET hol_warehouse_name = 'EVOLV_AI_HOL_WH';
 SET current_user_name = CURRENT_USER();
+SET hol_database_name = 'EVOLV_E2E_SNOWFLAKE_AI_HOL';
 
 -- Switch to SECURITYADMIN role to create role
 USE ROLE SECURITYADMIN;
