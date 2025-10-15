@@ -10,6 +10,8 @@ Participants will build an end-to-end AI-powered solution that:
 - Enriches structured data with semantic views for AI understanding
 - Delivers insights through Snowflake Intelligence
 
+![](https://raw.githubusercontent.com/evolvconsulting/e2e-snowflake-ai-hol/refs/heads/main/img/ref-arch.png)
+
 By completing this HOL, you will learn how to:
 - Build semantic views for faster, business-friendly insights
 - Use Snowflake Intelligence to query and summarize data natively in Snowflake
@@ -90,10 +92,11 @@ CREATE OR REPLACE DATABASE IDENTIFIER($hol_database_name);
 ```
 
 #### Open Notebook
-1. In the navigation menu, select **Projects » Notebooks**.
-2. Next to **+ Notebook**, open the drop-down menu and select **Create from repository**.
-3. Select **File location in repository** and then select **Create Git repository**.
-4. Enter the following:
+1. Within Snowsight, change your role to the newly created **EVOLV_AI_HOL_ADMIN** role.
+2. In the navigation menu, select **Projects » Notebooks**.
+3. Next to **+ Notebook**, open the drop-down menu and select **Create from repository**.
+4. Select **File location in repository** and then select **Create Git repository**.
+5. Enter the following:
     - Repository URL: `https://github.com/evolvconsulting/e2e-snowflake-ai-hol.git`
     - Repository name: `"e2e-snowflake-ai-hol"`
     - Integration: `EVOLV_GITHUB_API_INTEGRATION`
@@ -103,7 +106,8 @@ CREATE OR REPLACE DATABASE IDENTIFIER($hol_database_name);
 
     ![](https://raw.githubusercontent.com/evolvconsulting/e2e-snowflake-ai-hol/refs/heads/main/img/26.png)
     
-5. Select the Notebook file from the repository: `evolv-e2e-snowflake-ai-hol.ipynb` and then select **Select file**.
-6. For Notebook location, select a database and schema `EVOLV_E2E_SNOWFLAKE_AI_HOL.PUBLIC` to contain the notebook.
-7. For Notebook warehouse, select `EVOLV_AI_HOL_WH`.
-8. Follow the steps outline in the notebook to proceed with the remainder of the lab.
+6. Select the Notebook file from the repository: `evolv-e2e-snowflake-ai-hol.ipynb` and then select **Select file**.
+7. For Notebook location, select a database and schema `EVOLV_E2E_SNOWFLAKE_AI_HOL.PUBLIC` to contain the notebook.
+8. For Query warehouse, select `EVOLV_AI_HOL_WH`.
+9. For Notebook warehouse, select `EVOLV_AI_HOL_WH`.
+10. Follow the steps outline in the notebook to proceed with the remainder of the lab.
