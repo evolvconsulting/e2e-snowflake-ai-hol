@@ -35,9 +35,7 @@ After registering, you will receive an email with an activation link and URL for
 #### Logging into the Snowflake User Interface (UI)
 Open a browser window and enter the URL of your Snowflake 30-day trial environment that was sent with your registration email. Enter the username and password that you specified during the registration.
 
-#### Create Workspace
-
-Create a Workspace connected to this Git repository as follows:
+#### Configure Git API Integration
 1. In the left navigation, select **Projects » Workspaces**.
 2. Select **+ Add new**, select **SQL File**, and name it to  your liking.
 3. Paste in the following statements and select **Runn all** or *Ctrl + Shift + Enter*.
@@ -50,16 +48,6 @@ Create a Workspace connected to this Git repository as follows:
         API_ALLOWED_PREFIXES = ('https://github.com/evolvconsulting/')
         ENABLED = TRUE;
     ```
-4. In the Workspace selector at the top of the page, select Create Workspace **From Git repository** and enter the following:
-    - Repository URL: `https://github.com/evolvconsulting/e2e-snowflake-ai-hol.git`
-    - Workspace name: `e2e-snowflake-ai-hol`
-    - API integration: `EVOLV_GITHUB_API_INTEGRATION`
-    - Select `Public repository`
-
-    ![](https://raw.githubusercontent.com/evolvconsulting/e2e-snowflake-ai-hol/refs/heads/main/img/01.png)
-
-5. Select **Create**.
-
 #### Create Dedicated Role, Warehouse & Database
 - **Role**: `EVOLV_AI_HOL`
 - **Warehouse**: `EVOLV_AI_HOL_WH` (XSMALL with auto-suspend/resume)
@@ -101,24 +89,21 @@ USE ROLE IDENTIFIER($hol_admin_role_name);
 CREATE OR REPLACE DATABASE IDENTIFIER($hol_database_name);
 ```
 
-#### Import Lab Notebook
-The remainder of the lab is guided through a Notebook. Follow these steps to import the lab Notebook into the database we just created:
-1. In the **e2e-snowflake-ai-hol** Workspace, select the elipsis next to the `evolv-e2e-snowflake-ai-hol.ipynb` file and select **Download**.
+#### Open Notebook
+1. In the navigation menu, select **Projects » Notebooks**.
+2. Next to **+ Notebook**, open the drop-down menu and select **Create from repository**.
+3. Select **File location in repository** and then select **Create Git repository**.
+4. Enter the following:
+    - Repository URL: `https://github.com/evolvconsulting/e2e-snowflake-ai-hol.git`
+    - Repository name: `"e2e-snowflake-ai-hol"`
+    - Integration: `EVOLV_GITHUB_API_INTEGRATION`
+    - Select `Public repository`
+    - Database and schema: `EVOLV_E2E_SNOWFLAKE_AI_HOL.PUBLIC`
+    - Select **Create**.
 
-![](https://raw.githubusercontent.com/evolvconsulting/e2e-snowflake-ai-hol/refs/heads/main/img/02.png)
-
-2. In the left navigation, select **Projects » Notebooks**.
-3. Select the dropdown menu next to **+ Notebook** and select **Import .ipynb file**.
-4. Select the notebook file downloaded in step 1.
-5. In the Create notebook dialog, enter the following:
-    - Name: `evolv-e2e-snowflake-ai-hol`
-    - Notebook location: database `EVOLV_E2E_SNOWFLAKE_AI_HOL` schema `PUBLIC`
-    - Runtime: `Run on warehouse`
-    - Runtime version: `Snowflake Warehouse Runtime 2.0`
-    - Query warehouse: `EVOLV_AI_HOL_WH`
-    - Notebook warehouse: `EVOLV_AI_HOL_WH`
-
-    ![](https://raw.githubusercontent.com/evolvconsulting/e2e-snowflake-ai-hol/refs/heads/main/img/03.png)
+    ![](https://raw.githubusercontent.com/evolvconsulting/e2e-snowflake-ai-hol/refs/heads/main/img/26.png)
     
-6. Select **Create**.
-7. Follow the steps outline in the notebook to proceed with the remainder of the lab.
+5. Select the Notebook file from the repository: `evolv-e2e-snowflake-ai-hol.ipynb` and then select **Select file**.
+6. For Notebook location, select a database and schema `EVOLV_E2E_SNOWFLAKE_AI_HOL.PUBLIC` to contain the notebook.
+7. For Notebook warehouse, select `EVOLV_AI_HOL_WH`.
+8. Follow the steps outline in the notebook to proceed with the remainder of the lab.
