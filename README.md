@@ -40,7 +40,7 @@ Open a browser window and enter the URL of your Snowflake 30-day trial environme
 #### Configure Git API Integration
 1. In the left navigation, select **Projects » Workspaces**.
 2. Select **+ Add new**, select **SQL File**, and name it to  your liking.
-3. Paste in the following statements and select **Runn all** or *Ctrl + Shift + Enter*.
+3. Paste in the following statements and select **Run all** or *Ctrl + Shift + Enter*.
     ```sql
     USE ROLE ACCOUNTADMIN;
 
@@ -55,48 +55,46 @@ Open a browser window and enter the URL of your Snowflake 30-day trial environme
 - **Warehouse**: `EVOLV_AI_HOL_WH` (XSMALL with auto-suspend/resume)
 - **Database**: `EVOLV_E2E_SNOWFLAKE_AI_HOL`
 ```sql
-SET hol_admin_role_name = 'EVOLV_AI_HOL_ADMIN';
-SET hol_warehouse_name = 'EVOLV_AI_HOL_WH';
 SET current_user_name = CURRENT_USER();
-SET hol_database_name = 'EVOLV_E2E_SNOWFLAKE_AI_HOL';
 
 -- Switch to SECURITYADMIN role to create role
 USE ROLE SECURITYADMIN;
-CREATE OR REPLACE ROLE IDENTIFIER($hol_admin_role_name);
+CREATE OR REPLACE ROLE EVOLV_AI_HOL_ADMIN;
 
 -- Grant the role to the current user
-GRANT ROLE IDENTIFIER($hol_admin_role_name) TO USER IDENTIFIER($current_user_name);
+GRANT ROLE EVOLV_AI_HOL_ADMIN TO USER IDENTIFIER($current_user_name);
 
 -- Grant create database permission to the role
 USE ROLE ACCOUNTADMIN;
-GRANT CREATE DATABASE ON ACCOUNT TO ROLE IDENTIFIER($hol_admin_role_name);
+GRANT CREATE DATABASE ON ACCOUNT TO ROLE EVOLV_AI_HOL_ADMIN;
 
 -- Create a dedicated warehouse for the demo with auto-suspend/resume
-CREATE OR REPLACE WAREHOUSE IDENTIFIER($hol_warehouse_name)
+CREATE OR REPLACE WAREHOUSE EVOLV_AI_HOL_WH
     WITH WAREHOUSE_SIZE = 'XSMALL'
     AUTO_SUSPEND = 300
     AUTO_RESUME = TRUE;
 
 -- Grant usage on warehouse to admin role
-GRANT USAGE ON WAREHOUSE IDENTIFIER($hol_warehouse_name) TO ROLE IDENTIFIER($hol_admin_role_name);
+GRANT USAGE ON WAREHOUSE EVOLV_AI_HOL_WH TO ROLE EVOLV_AI_HOL_ADMIN;
 
 -- Alter current user's default role and warehouse to the ones used here
-ALTER USER IDENTIFIER($current_user_name) SET DEFAULT_ROLE = $hol_admin_role_name;
-ALTER USER IDENTIFIER($current_user_name) SET DEFAULT_WAREHOUSE = $hol_warehouse_name;
+ALTER USER IDENTIFIER($current_user_name) SET DEFAULT_ROLE = EVOLV_AI_HOL_ADMIN;
+ALTER USER IDENTIFIER($current_user_name) SET DEFAULT_WAREHOUSE = EVOLV_AI_HOL_WH;
 
 -- Switch to hol role to create objects
-USE ROLE IDENTIFIER($hol_admin_role_name);
+USE ROLE EVOLV_AI_HOL_ADMIN;
 
 -- Create database
-CREATE OR REPLACE DATABASE IDENTIFIER($hol_database_name);
+CREATE OR REPLACE DATABASE EVOLV_E2E_SNOWFLAKE_AI_HOL;
 ```
 
 #### Open Notebook
 1. Within Snowsight, change your role to the newly created **EVOLV_AI_HOL_ADMIN** role.
 2. In the navigation menu, select **Projects » Notebooks**.
 3. Next to **+ Notebook**, open the drop-down menu and select **Create from repository**.
-4. Select **File location in repository** and then select **Create Git repository**.
-5. Enter the following:
+4. For the **Name**, enter: `e2e-snowflake-ai-hol`
+5. Select **File location in repository** and then select **Create Git repository**.
+6. Enter the following:
     - Repository URL: `https://github.com/evolvconsulting/e2e-snowflake-ai-hol.git`
     - Repository name: `"e2e-snowflake-ai-hol"`
     - Integration: `EVOLV_GITHUB_API_INTEGRATION`
@@ -106,8 +104,11 @@ CREATE OR REPLACE DATABASE IDENTIFIER($hol_database_name);
 
     ![](https://raw.githubusercontent.com/evolvconsulting/e2e-snowflake-ai-hol/refs/heads/main/img/26.png)
     
-6. Select the Notebook file from the repository: `evolv-e2e-snowflake-ai-hol.ipynb` and then select **Select file**.
-7. For Notebook location, select a database and schema `EVOLV_E2E_SNOWFLAKE_AI_HOL.PUBLIC` to contain the notebook.
-8. For Query warehouse, select `EVOLV_AI_HOL_WH`.
-9. For Notebook warehouse, select `EVOLV_AI_HOL_WH`.
-10. Follow the steps outline in the notebook to proceed with the remainder of the lab.
+7. Select the Notebook file from the repository: `evolv-e2e-snowflake-ai-hol.ipynb` and then select **Select file**.
+8. For Notebook location, select a database and schema `EVOLV_E2E_SNOWFLAKE_AI_HOL.PUBLIC` to contain the notebook.
+9. For **Runtime**, select `Run on warehouse`.
+10. For **Runtime version**, select `Snowflake Warehouse Runtime 2.0`
+11. For **Query warehouse**, select `EVOLV_AI_HOL_WH`.
+12. For **Notebook warehouse**, select `EVOLV_AI_HOL_WH`.
+13. Select **Create**
+14. Follow the steps outlined in the notebook to proceed with the remainder of the lab.
